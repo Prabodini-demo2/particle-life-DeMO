@@ -44,6 +44,21 @@ int main() {
         }
     }
 
+    particle_life::Simulation fast_particle(1, 7);
+    auto& particle = const_cast<particle_life::Particle&>(fast_particle.particles().front());
+    particle.x = particle_life::Simulation::width - 0.5;
+    particle.y = particle_life::Simulation::height - 0.25;
+    particle.vx = 1000.0;
+    particle.vy = -1000.0;
+    fast_particle.step();
+
+    const auto& wrapped_particle = fast_particle.particles().front();
+    if (wrapped_particle.x < 0.0 || wrapped_particle.x >= particle_life::Simulation::width ||
+        wrapped_particle.y < 0.0 || wrapped_particle.y >= particle_life::Simulation::height) {
+        std::cerr << "particle with a large displacement escaped simulation bounds\n";
+        return 1;
+    }
+
     const double result = first.checksum();
     constexpr double expected_checksum = 610659.60219911579;
     if (!std::isfinite(result) || !close(result, expected_checksum, 1.0e-6)) {
