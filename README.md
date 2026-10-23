@@ -54,3 +54,5 @@ python3 tools/benchmark.py --no-visualize
 ```
 
 The visualization is never part of the timed benchmark section, so it cannot affect `simulation_fps`. On a runner with no graphical display, the visualization pass fails and prints a warning to stderr instead of failing the whole command — the measured `artemis_results.json` from the timed section is written first and is unaffected either way.
+
+<!-- QA-MT 23 Oct 3332 admin: test change -->
